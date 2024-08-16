@@ -3,8 +3,8 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const formatAmountForStripe = (amount) => {
-    return Math.round(amount * 100)
-}
+  return Math.round(amount * 100);
+};
 
 export async function POST(req) {
   const params = {
@@ -13,15 +13,15 @@ export async function POST(req) {
     line_items: [
       {
         price_data: {
-            currency: "usd",
-            product_data: {
-                name: "Pro Subscription",
-            },
-            unit_amount: formatAmountForStripe(10),
-            recurring: {
-                interval: 'month',
-                interval_count: 1
-            },
+          currency: "usd",
+          product_data: {
+            name: "Pro Subscription",
+          },
+          unit_amount: formatAmountForStripe(10),
+          recurring: {
+            interval: "month",
+            interval_count: 1,
+          },
         },
         quantity: 1,
       },
@@ -33,5 +33,5 @@ export async function POST(req) {
 
   return NextResponse.json(checkoutSession, {
     status: 200,
-  })
+  });
 }
