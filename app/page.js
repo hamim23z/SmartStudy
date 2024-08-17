@@ -31,15 +31,79 @@ export default function Home() {
       {/* Navbar */}
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            style={{
+              flexGrow: 1,
+              fontWeight: "",
+              textTransform: "uppercase",
+              fontFamily: "Kanit, sans-serif",
+              fontWeight: "900",
+            }}
+          >
             Smart Study
           </Typography>
           <SignedOut>
-            <Button style={{ color: "black" }}>Pricing</Button>
-            <Button style={{ color: "black" }}>Github</Button>
-            <Button style={{ color: "black" }}>LinkedIn</Button>
-            <Button style={{ color: "black" }}>Contact Sales</Button>
-            <Button style={{ color: "black" }}>Start Building</Button>
+            <Button
+              component="a"
+              href="#"
+              target="_blank"
+              style={{
+                color: "black",
+                fontFamily: "Kanit, sans-serif",
+                fontWeight: "900",
+              }}
+            >
+              Pricing
+            </Button>
+            <Button
+              component="a"
+              href="https://github.com/hamim23z"
+              target="_blank"
+              style={{
+                color: "black",
+                fontFamily: "Kanit, sans-serif",
+                fontWeight: "900",
+              }}
+            >
+              GitHub
+            </Button>
+            <Button
+              component="a"
+              href="https://www.linkedin.com/in/hamimc/"
+              target="_blank"
+              style={{
+                color: "black",
+                fontFamily: "Kanit, sans-serif",
+                fontWeight: "900",
+              }}
+            >
+              LinkedIn
+            </Button>
+            <Button
+              component="a"
+              href="#"
+              target="_blank"
+              style={{
+                color: "black",
+                fontFamily: "Kanit, sans-serif",
+                fontWeight: "900",
+              }}
+            >
+              Contact Sales
+            </Button>
+            <Button
+              component="a"
+              href="#"
+              target="_blank"
+              style={{
+                color: "black",
+                fontFamily: "Kanit, sans-serif",
+                fontWeight: "900",
+              }}
+            >
+              Start Building
+            </Button>
           </SignedOut>
           <SignedIn>
             <UserButton></UserButton>
@@ -65,11 +129,19 @@ export default function Home() {
           variant="h2"
           sx={{
             textTransform: "uppercase",
+            fontFamily: "Kanit, sans-serif",
+            fontWeight: "900",
           }}
         >
           Welcome to Smart Study
         </Typography>
-        <Typography variant="subtitle1">
+        <Typography
+          variant="subtitle1"
+          sx={{
+            fontFamily: "Kanit, sans-serif",
+            fontWeight: "900",
+          }}
+        >
           The premiere flashcards and study materials for Computer Science
           Students
         </Typography>
@@ -85,21 +157,36 @@ export default function Home() {
           <Button
             variant="contained"
             color="primary"
-            sx={{ mt: 2, marginRight: "10px" }}
+            sx={{
+              mt: 2,
+              marginRight: "10px",
+              fontFamily: "Kanit, sans-serif",
+              fontWeight: "900",
+            }}
           >
             Get Started
           </Button>
           <Button
             variant="contained"
             color="primary"
-            sx={{ mt: 2, marginRight: "10px" }}
+            sx={{
+              mt: 2,
+              marginRight: "10px",
+              fontFamily: "Kanit, sans-serif",
+              fontWeight: "900",
+            }}
           >
             Sign In
           </Button>
           <Button
             variant="contained"
             color="primary"
-            sx={{ mt: 2, marginRight: "10px" }}
+            sx={{
+              mt: 2,
+              marginRight: "10px",
+              fontFamily: "Kanit, sans-serif",
+              fontWeight: "900",
+            }}
           >
             Sign Out
           </Button>
