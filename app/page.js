@@ -224,19 +224,38 @@ export default function Home() {
             mt: 2,
           }}
         >
-          {["Get Started", "Sign In", "Sign Out"].map((text, index) => (
-            <Button
-              key={index}
-              variant="contained"
-              color="primary"
-              sx={{
-                fontFamily: "Kanit, sans-serif",
-                fontWeight: "900",
-              }}
-            >
-              {text}
-            </Button>
-          ))}
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              fontFamily: "Kanit, sans-serif",
+              fontWeight: "900",
+            }}
+          >
+            Get Started
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              fontFamily: "Kanit, sans-serif",
+              fontWeight: "900",
+            }}
+          >
+            Sign In
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              fontFamily: "Kanit, sans-serif",
+              fontWeight: "900",
+            }}
+          >
+            Sign Up
+          </Button>
         </Box>
       </Box>
 
@@ -358,9 +377,7 @@ export default function Home() {
         </Grid>
       </Box>
 
-      <Typography>
-        Hello
-      </Typography>
+      <Typography>Hello</Typography>
     </Container>
   );
 }
