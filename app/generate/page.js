@@ -59,16 +59,16 @@ export default function Generate() {
 
   const saveFlashcards = async () => {
     if (!name.trim()) {
-      alert('Please enter a name for your flashcard set.');
+      alert("Please enter a name for your flashcard set.");
       return;
     }
-  
+
     try {
-      const userDocRef = doc(collection(db, 'users'), user.id);
+      const userDocRef = doc(collection(db, "users"), user.id);
       const userDocSnap = await getDoc(userDocRef);
-  
+
       const batch = writeBatch(db);
-  
+
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data();
         const updatedSets = [...(userData.flashcardSets || []), { name: name }];
@@ -76,22 +76,21 @@ export default function Generate() {
       } else {
         batch.set(userDocRef, { flashcardSets: [{ name: name }] });
       }
-  
-      const setDocRef = doc(collection(userDocRef, 'flashcardSets'), name);
+
+      const setDocRef = doc(collection(userDocRef, "flashcardSets"), name);
       batch.set(setDocRef, { flashcards });
-  
+
       await batch.commit();
-  
-      alert('Flashcards saved successfully!');
-      handleClose();  // Use the correct function to close the dialog
-      setName('');
+
+      alert("Flashcards saved successfully!");
+      handleClose(); // Close the dialog
+      setName("");
+      router.push("/flashcards"); // Redirect to the flashcards page
     } catch (error) {
-      console.error('Error saving flashcards:', error);
+      console.error("Error saving flashcards:", error);
       alert(`An error occurred while saving flashcards: ${error.message}`);
     }
   };
-  
-  
 
   return (
     <Container maxWidth="md">
