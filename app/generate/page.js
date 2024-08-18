@@ -2,6 +2,7 @@
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { db } from "@/firebase";
 import { getDoc, writeBatch } from "firebase/firestore";
 import {
   Container,
@@ -20,6 +21,8 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
+import { doc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 
 export default function Generate() {
   const { isLoaded, isSignedIn, user } = useUser();
