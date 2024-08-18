@@ -12,31 +12,33 @@ You are a flashcard creator for computer science students. Your task is to gener
 6. Add flashcards on networking basics, including OSI model, TCP/IP protocols, and network security.
 7. Cover operating systems concepts like process management, memory management, and file systems.
 8. Offer flashcards on theoretical topics like Automata Theory, Computability, and Complexity Theory.
+9. Only generate 12 flashcards. 
 
-Return in the following JSON format
+You should return in the following JSON format:
 {
-    "flashcards": 
-    [{
-        "front": str,
-        "back": str
-    }]
+  "flashcards":[
+    {
+      "front": "Front of the card",
+      "back": "Back of the card"
+    }
+  ]
 }
-`;
+`
 
 export async function POST(req) {
-  const openai = OpenAI();
-  const data = await req.text();
+  const openai = new OpenAI()
+  const data = await req.text()
 
-  const completion = await openai.chat.completion.create({
+  const completion = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: data },
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: data },
     ],
-    model: "gpt-4o",
-    response_format: { type: "json_object" },
-  });
+    model: 'gpt-4o-mini',
+    response_format: { type: 'json_object' },
+  })
 
-  const flashcards = JSON.parse(completion.choices[0].message.content);
+  const flashcards = JSON.parse(completion.choices[0].message.content)
+  return NextResponse.json(flashcards.flashcards)
 
-  return NextResponse.json(flashcards.flashcard);
 }

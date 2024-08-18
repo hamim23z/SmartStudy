@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import getStripe from "@/utils/get-stripe";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
@@ -56,6 +57,7 @@ function PricingCard({ title, price, features }) {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -68,6 +70,14 @@ export default function Home() {
     setAnchorEl(null);
     setMenuOpen(false);
   };
+
+  const handleSignInClick = () => {
+    router.push('/sign-in'); // Navigate to the sign-in page
+  };
+
+  const handleSignUpClick = () => {
+    router.push('/sign-up')
+  }
 
   return (
     <Container
@@ -242,6 +252,7 @@ export default function Home() {
               fontFamily: "Kanit, sans-serif",
               fontWeight: "900",
             }}
+            onClick={handleSignInClick} // Add onClick handler
           >
             Sign In
           </Button>
@@ -253,6 +264,7 @@ export default function Home() {
               fontFamily: "Kanit, sans-serif",
               fontWeight: "900",
             }}
+            onClick={handleSignUpClick}
           >
             Sign Up
           </Button>
