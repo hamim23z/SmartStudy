@@ -3,7 +3,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { db } from "@/firebase";
-import { getDoc, writeBatch } from "firebase/firestore";
+import { writeBatch, doc, getDoc, collection } from "firebase/firestore";
 import {
   Container,
   Box,
@@ -21,8 +21,6 @@ import {
   DialogContentText,
   DialogActions,
 } from "@mui/material";
-import { doc } from "firebase/firestore";
-import { collection } from "firebase/firestore";
 
 export default function Generate() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -62,34 +60,38 @@ export default function Generate() {
       alert(`Please enter a name for the flashcards!`);
       return;
     }
-
+  
     const batch = writeBatch(db);
     const userDocRef = doc(collection(db, "users"), user.id);
     const docSnap = await getDoc(userDocRef);
-
+  
     if (docSnap.exists()) {
-      const collections = docSnap.data().flashcards || [];
+      const data = docSnap.data();
+      const collections = data.flashcards || [];
       if (collections.find((f) => f.name === name)) {
         alert("Flashcard collection with the same name already exists");
         return;
-      } else {
-        collections.push({ name });
-        batch.set(userDocRef, { flashcardSets: [{ name: setName }] });
       }
+  
+      // Update flashcards array with new collection name
+      collections.push({ name });
+      batch.update(userDocRef, { flashcards: collections });
     } else {
+      // Create new document with flashcards
       batch.set(userDocRef, { flashcards: [{ name }] });
     }
-
+  
     const colRef = collection(userDocRef, name);
     flashcards.forEach((flashcard) => {
       const cardDocRef = doc(colRef);
       batch.set(cardDocRef, flashcard);
     });
-
+  
     await batch.commit();
     handleClose();
     router.push("/flashcards");
   };
+  
 
   return (
     <Container maxWidth="md">
