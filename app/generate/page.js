@@ -58,38 +58,40 @@ export default function Generate() {
   };
 
   const saveFlashcards = async () => {
-    if (!name) {
-      alert(`Please enter a name for the flashcards!`);
+    if (!name.trim()) {
+      alert('Please enter a name for your flashcard set.');
       return;
     }
-
-    const batch = writeBatch(db);
-    const userDocRef = doc(collection(db, "users"), user.id);
-    const docSnap = await getDoc(userDocRef);
-
-    if (docSnap.exists()) {
-      const collections = docSnap.data().flashcards || [];
-      if (collections.find((f) => f.name === name)) {
-        alert("Flashcard collection with the same name already exists");
-        return;
+  
+    try {
+      const userDocRef = doc(collection(db, 'users'), user.id);
+      const userDocSnap = await getDoc(userDocRef);
+  
+      const batch = writeBatch(db);
+  
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        const updatedSets = [...(userData.flashcardSets || []), { name: name }];
+        batch.update(userDocRef, { flashcardSets: updatedSets });
       } else {
-        collections.push({ name });
-        batch.set(userDocRef, { flashcardSets: [{ name: setName }] });
+        batch.set(userDocRef, { flashcardSets: [{ name: name }] });
       }
-    } else {
-      batch.set(userDocRef, { flashcards: [{ name }] });
+  
+      const setDocRef = doc(collection(userDocRef, 'flashcardSets'), name);
+      batch.set(setDocRef, { flashcards });
+  
+      await batch.commit();
+  
+      alert('Flashcards saved successfully!');
+      handleClose();  // Use the correct function to close the dialog
+      setName('');
+    } catch (error) {
+      console.error('Error saving flashcards:', error);
+      alert(`An error occurred while saving flashcards: ${error.message}`);
     }
-
-    const colRef = collection(userDocRef, name);
-    flashcards.forEach((flashcard) => {
-      const cardDocRef = doc(colRef);
-      batch.set(cardDocRef, flashcard);
-    });
-
-    await batch.commit();
-    handleClose();
-    router.push("/flashcards");
   };
+  
+  
 
   return (
     <Container maxWidth="md">
