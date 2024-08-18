@@ -58,38 +58,37 @@ export default function Generate() {
   };
 
   const saveFlashcards = async () => {
-    if (!name.trim()) {
-      alert("Please enter a name for your flashcard set.");
+    if (!name) {
+      alert(`Please enter a name for the flashcards!`);
       return;
     }
 
-    try {
-      const userDocRef = doc(collection(db, "users"), user.id);
-      const userDocSnap = await getDoc(userDocRef);
+    const batch = writeBatch(db);
+    const userDocRef = doc(collection(db, "users"), user.id);
+    const docSnap = await getDoc(userDocRef);
 
-      const batch = writeBatch(db);
-
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data();
-        const updatedSets = [...(userData.flashcardSets || []), { name: name }];
-        batch.update(userDocRef, { flashcardSets: updatedSets });
+    if (docSnap.exists()) {
+      const collections = docSnap.data().flashcards || [];
+      if (collections.find((f) => f.name === name)) {
+        alert("Flashcard collection with the same name already exists");
+        return;
       } else {
-        batch.set(userDocRef, { flashcardSets: [{ name: name }] });
+        collections.push({ name });
+        batch.set(userDocRef, { flashcardSets: [{ name: setName }] });
       }
-
-      const setDocRef = doc(collection(userDocRef, "flashcardSets"), name);
-      batch.set(setDocRef, { flashcards });
-
-      await batch.commit();
-
-      alert("Flashcards saved successfully!");
-      handleClose(); // Close the dialog
-      setName("");
-      router.push("/flashcards"); // Redirect to the flashcards page
-    } catch (error) {
-      console.error("Error saving flashcards:", error);
-      alert(`An error occurred while saving flashcards: ${error.message}`);
+    } else {
+      batch.set(userDocRef, { flashcards: [{ name }] });
     }
+
+    const colRef = collection(userDocRef, name);
+    flashcards.forEach((flashcard) => {
+      const cardDocRef = doc(colRef);
+      batch.set(cardDocRef, flashcard);
+    });
+
+    await batch.commit();
+    handleClose();
+    router.push("/flashcards");
   };
 
   return (
