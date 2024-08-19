@@ -37,10 +37,12 @@ export default function Flashcards() {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="1200px">
       <Grid container spacing={3} sx={{ mt: 4 }}>
         {flashcards.map((flashcard, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
+          <div style={{ width: '100%', maxWidth: '600px' }}></div>
+
             <Card>
               <CardActionArea onClick={() => handleCardClick(flashcard.name)}>
                 <CardContent>

@@ -104,7 +104,13 @@ export default function Generate() {
           alignItems: "center",
         }}
       >
-        <Typography variant="h4">Generate your Flashcards</Typography>
+        <Typography variant="h4"
+          sx = {{
+            fontFamily: "Kanit, sans-serif",
+            fontWeight: "900",
+            paddingBottom: "50px"
+          }}
+        >Generate Flashcards using ChronicleAI</Typography>
 
         <Paper
           sx={{
