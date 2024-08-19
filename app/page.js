@@ -88,7 +88,7 @@ export default function Home() {
   const handleSignUpClick = () => {
     router.push("/sign-up");
   };
-  
+
   const handleContact = () => {
     router.push("/contact");
   };
@@ -531,7 +531,7 @@ export default function Home() {
               fontWeight: "900",
               backgroundColor: "red",
             }}
-            onClick={handleContact} 
+            onClick={handleContact}
           >
             Contact Sales
           </Button>
@@ -747,6 +747,9 @@ export default function Home() {
           position: "relative",
           bottom: 0,
           width: "100%",
+          textAlign: "center",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Container maxWidth="lg">
@@ -766,7 +769,14 @@ export default function Home() {
               <Typography variant="body2" sx={{ mb: 2 }}>
                 © {new Date().getFullYear()} Smart Study. All rights reserved.
               </Typography>
-              <Stack direction="row" spacing={2}>
+              <Stack
+                direction="row"
+                spacing={2}
+                sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
                 <Link
                   href="https://github.com/hamim23z/SmartStudy"
                   target="_blank"
@@ -814,7 +824,15 @@ export default function Home() {
               </Stack>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Typography variant="h6" sx={{ mb: 2, fontFamily: "Kanit, sans-serif", fontWeight: 900, textTransform: "uppercase"}}>
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: 2,
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: 900,
+                  textTransform: "uppercase",
+                }}
+              >
                 Resources
               </Typography>
               <Stack spacing={1}>
@@ -830,7 +848,7 @@ export default function Home() {
                   }}
                   style={{
                     color: "white",
-                    textDecoration: "none"
+                    textDecoration: "none",
                   }}
                 >
                   Chronicle AI
@@ -847,7 +865,7 @@ export default function Home() {
                   }}
                   style={{
                     color: "white",
-                    textDecoration: "none"
+                    textDecoration: "none",
                   }}
                 >
                   Pantry Tracker
@@ -864,7 +882,7 @@ export default function Home() {
                   }}
                   style={{
                     color: "white",
-                    textDecoration: "none"
+                    textDecoration: "none",
                   }}
                 >
                   Material UI
@@ -872,7 +890,15 @@ export default function Home() {
               </Stack>
             </Grid>
             <Grid item xs={12} md={4}>
-              <Typography variant="h6" sx={{ mb: 2, fontFamily: "Kanit, sans-serif", fontWeight: 900, textTransform: "uppercase" }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: 2,
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: 900,
+                  textTransform: "uppercase",
+                }}
+              >
                 Legal
               </Typography>
               <Stack spacing={1}>
@@ -888,7 +914,7 @@ export default function Home() {
                   }}
                   style={{
                     color: "white",
-                    textDecoration: "none"
+                    textDecoration: "none",
                   }}
                 >
                   Privacy Policy
@@ -905,7 +931,7 @@ export default function Home() {
                   }}
                   style={{
                     color: "white",
-                    textDecoration: "none"
+                    textDecoration: "none",
                   }}
                 >
                   Terms and Conditions
