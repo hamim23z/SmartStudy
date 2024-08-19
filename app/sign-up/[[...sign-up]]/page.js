@@ -211,11 +211,11 @@ export default function SignUpPage() {
       <Box
         sx={{
           width: "100%",
-          backgroundImage: `url(/mainpic1.jpg)`,
+          backgroundImage: `url(/mainpic4.jpeg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          minHeight: "calc(100vh - 64px)", // Adjust this if the AppBar height changes
+          minHeight: "calc(100vh - 84px)", // Adjust this if the AppBar height changes
         }}
       >
         <Box

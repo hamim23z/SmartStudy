@@ -20,6 +20,15 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import Head from "next/head";
 import Link from "next/link";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
+import QuizIcon from "@mui/icons-material/Quiz";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 // PricingCard Component
 function PricingCard({ title, price, features }) {
@@ -84,7 +93,7 @@ export default function Home() {
     <Container
       maxWidth="false"
       disableGutters
-      sx={{ backgroundColor: "white" }}
+      sx={{ backgroundColor: "black" }}
     >
       <Head>
         <title>Smart Study</title>
@@ -438,7 +447,7 @@ export default function Home() {
       <Box
         sx={{
           minHeight: "100vh",
-          backgroundImage: `url('/mainpic1.jpg')`,
+          backgroundImage: `url('/mainpic7.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -483,7 +492,7 @@ export default function Home() {
             mt: 4,
             ml: 4,
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <Button
@@ -538,15 +547,19 @@ export default function Home() {
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          padding: { xs: "20px", sm: "40px" },
+          paddingTop: "200px",
+          paddingBottom: "200px",
         }}
       >
         <Typography
           variant="h4"
           component="h2"
           sx={{
-            paddingBottom: "30px",
+            paddingBottom: "120px",
             textTransform: "uppercase",
+            color: "white",
+            fontFamily: "Kanit, sans-serif",
+            fontWeight: "900",
           }}
         >
           Features
@@ -555,34 +568,52 @@ export default function Home() {
           container
           spacing={2}
           sx={{
-            maxWidth: "1100px",
+            maxWidth: "1200px",
             mx: "auto",
           }}
         >
           {[
             {
               title: "Customized Flashcards",
-              text: "Create and tailor your own flashcards with no limitations for a personalized learning experience.",
+              text: "Create and tailor your own flashcards with no limitations for a personalized learning experience. Do it your way.",
+              icon: (
+                <LibraryBooksIcon
+                  sx={{ fontSize: 40, mr: 2 }}
+                ></LibraryBooksIcon>
+              ),
             },
             {
               title: "Got stuck? Use our AI",
-              text: "If you dont know what flashcards to make then ask our AI, ChronicleAI, for some topics to review.",
+              text: "If you dont know what flashcards to make then ask our AI, ChronicleAI, for some ideas and new topics to review.",
+              icon: <SmartToyIcon sx={{ fontSize: 40, mr: 2 }}></SmartToyIcon>,
             },
             {
               title: "Quizzes and Timers",
               text: "You can create your own quiz using your flashcards to track your progress. And you can start a timer to really focus!",
+              icon: <QuizIcon sx={{ fontSize: 40, mr: 2 }}></QuizIcon>,
             },
             {
               title: "Personalized Profile",
               text: "Your account, your rules. Choose different themes and change your profile picture. Make it your experience.",
+              icon: (
+                <AccountCircleIcon
+                  sx={{ fontSize: 40, mr: 2 }}
+                ></AccountCircleIcon>
+              ),
             },
             {
               title: "Premium Subscription",
               text: "Unlock exclusive features with different tiers. Choose the one that's best for you. You can always change and cancel.",
+              icon: (
+                <WorkspacePremiumIcon
+                  sx={{ fontSize: 40, mr: 2 }}
+                ></WorkspacePremiumIcon>
+              ),
             },
             {
               title: "Secure Payments with Stripe",
               text: "We use Stripe for all of our payments, one of the most secure payment platforms in the world! We won’t ask other payment methods.",
+              icon: <PaymentsIcon sx={{ fontSize: 40, mr: 2 }}></PaymentsIcon>,
             },
           ].map((feature, index) => (
             <Grid
@@ -592,19 +623,28 @@ export default function Home() {
               md={4}
               key={index}
               sx={{
-                border: "2px solid pink",
+                border: "2px solid black",
                 padding: "15px",
                 textAlign: "center",
-                borderRadius: "10px",
-                backgroundColor: "#f9f9f9",
+                borderRadius: "50px",
+                backgroundColor: "white",
+                marginBottom: "80px",
               }}
             >
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: "bold", paddingBottom: "10px" }}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "row",
+                  mb: 2,
+                }}
               >
-                {feature.title}
-              </Typography>
+                {feature.icon}
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                  {feature.title}
+                </Typography>
+              </Box>
               <Typography>{feature.text}</Typography>
             </Grid>
           ))}
@@ -615,34 +655,261 @@ export default function Home() {
       <Box sx={{ my: 6, textAlign: "center" }}>
         <Typography
           variant="h4"
-          sx={{ marginBottom: "20px", fontWeight: "bold" }}
+          sx={{
+            marginBottom: "20px",
+            fontWeight: "bold",
+            paddingBottom: "120px",
+            textTransform: "uppercase",
+            color: "white",
+            fontFamily: "Kanit, sans-serif",
+            fontWeight: "900",
+          }}
         >
           Pricing
         </Typography>
         <Grid container spacing={4} justifyContent="center">
           {[
-            { title: "Basic", price: "$10/month" },
-            { title: "Pro", price: "$20/month" },
-            { title: "Premium", price: "$30/month" },
+            {
+              title: "Basic",
+              price: "$0/month",
+              features: [
+                "Individual configuration",
+                "Limited to 1 person",
+                "No hidden fees or setup",
+                "Basic support",
+              ],
+            },
+            {
+              title: "Pro",
+              price: "$5/month",
+              features: [
+                "Individual configuration",
+                "Can add a collaborator",
+                "No hidden fees or setup",
+                "Priority support",
+              ],
+            },
+            {
+              title: "Premium",
+              price: "$10/month",
+              features: [
+                "Individual configuration",
+                "Can add as many people",
+                "No hidden fees or setup",
+                "Dedicated account manager",
+              ],
+            },
           ].map((plan, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <PricingCard
                 title={plan.title}
                 price={plan.price}
-                features={[
-                  "Feature 1",
-                  "Feature 2",
-                  "Feature 3",
-                  "Feature 4",
-                  "Feature 5",
-                ]}
+                features={plan.features}
+                style={{
+                  textDecoration: "none",
+                  listStyle: "none",
+                }}
               />
             </Grid>
           ))}
         </Grid>
+
+        <Typography
+          variant="h6" // Change the variant to a smaller size
+          sx={{
+            paddingTop: "50px",
+            color: "white",
+            maxWidth: "800px", // Adjust the maxWidth as needed
+            margin: "0 auto", // Center the text horizontally
+            textAlign: "center", // Optional: Center align the text
+          }}
+        >
+          All of our payments are made securely through Stripe. We will never
+          use any outside payment methods nor ask for any extra payments. All
+          communication will be sent via email. If you have any questions
+          regarding payment, please contact us via our contact form.
+        </Typography>
       </Box>
 
-      <Typography>Hello</Typography>
+      {/* Footer */}
+      <Box
+        sx={{
+          bgcolor: "black",
+          color: "white",
+          p: 4,
+          mt: "auto",
+          borderTop: "1px solid #333",
+          position: "relative",
+          bottom: 0,
+          width: "100%",
+        }}
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: 2,
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: "900",
+                  textTransform: "uppercase",
+                }}
+              >
+                Smart Study
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 2 }}>
+                © {new Date().getFullYear()} Smart Study. All rights reserved.
+              </Typography>
+              <Stack direction="row" spacing={2}>
+                <Link
+                  href="https://github.com/hamim23z/SmartStudy"
+                  target="_blank"
+                  color="inherit"
+                  aria-label="GitHub"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                >
+                  <GitHubIcon sx={{ color: "white" }} />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/in/hamimc/"
+                  target="_blank"
+                  color="inherit"
+                  aria-label="LinkedIn"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                >
+                  <LinkedInIcon sx={{ color: "white" }} />
+                </Link>
+                <Link
+                  href="#"
+                  color="inherit"
+                  aria-label="Twitter"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                >
+                  <TwitterIcon sx={{ color: "white" }} />
+                </Link>
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" sx={{ mb: 2, fontFamily: "Kanit, sans-serif", fontWeight: 900, textTransform: "uppercase"}}>
+                Resources
+              </Typography>
+              <Stack spacing={1}>
+                <Link
+                  href="https://github.com/alexisj890/chronicleAI"
+                  color="inherit"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none"
+                  }}
+                >
+                  Chronicle AI
+                </Link>
+                <Link
+                  href="https://github.com/hamim23z/Pantry-Tracker"
+                  color="inherit"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none"
+                  }}
+                >
+                  Pantry Tracker
+                </Link>
+                <Link
+                  href="https://github.com/hamim23z/Material-UI"
+                  color="inherit"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none"
+                  }}
+                >
+                  Material UI
+                </Link>
+              </Stack>
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <Typography variant="h6" sx={{ mb: 2, fontFamily: "Kanit, sans-serif", fontWeight: 900, textTransform: "uppercase" }}>
+                Legal
+              </Typography>
+              <Stack spacing={1}>
+                <Link
+                  href="/privacy"
+                  color="inherit"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none"
+                  }}
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="/terms"
+                  color="inherit"
+                  sx={{
+                    textDecoration: "none",
+                    color: "white",
+                    "&:hover": {
+                      color: "white",
+                    },
+                  }}
+                  style={{
+                    color: "white",
+                    textDecoration: "none"
+                  }}
+                >
+                  Terms and Conditions
+                </Link>
+              </Stack>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
     </Container>
   );
 }
