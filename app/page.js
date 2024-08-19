@@ -79,6 +79,9 @@ export default function Home() {
   const handleSignUpClick = () => {
     router.push("/sign-up");
   };
+  const handleContact = () => {
+    router.push("/contact");
+  };
 
   return (
     <Container
@@ -518,6 +521,7 @@ export default function Home() {
               fontWeight: "900",
               backgroundColor: "red",
             }}
+            onClick={handleContact} 
           >
             Contact Sales
           </Button>
