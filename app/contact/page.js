@@ -1,7 +1,10 @@
-"use client"; 
+"use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase";
+import { initializeApp } from "firebase/app";
 
 import {
   Box,
@@ -31,6 +34,8 @@ export default function Contact() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -54,15 +59,39 @@ export default function Contact() {
     setSnackbarOpen(false);
   };
 
-  const handleSendMessage = () => {
-    // Show Snackbar
-    setSnackbarOpen(true);
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
 
-    // Clear form inputs
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setFeedback("");
+    if (!emailRegex.test(value)) {
+      setEmailError("Please enter a valid email address.");
+    } else {
+      setEmailError(""); // Clear error if valid
+    }
+  };
+
+  const handleSendMessage = async () => {
+    try {
+      // Save the message to Firestore
+      await addDoc(collection(db, "Contact Form"), {
+        firstName,
+        lastName,
+        email,
+        feedback,
+        timestamp: new Date(),
+      });
+
+      // Show Snackbar
+      setSnackbarOpen(true);
+
+      // Clear form inputs
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setFeedback("");
+    } catch (error) {
+      console.error("Error sending message: ", error);
+    }
   };
 
   return (
@@ -460,6 +489,7 @@ export default function Contact() {
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 sx={{ backgroundColor: "white", borderRadius: 1 }}
+                required
               />
             </Grid>
             <Grid item xs={6}>
@@ -470,6 +500,7 @@ export default function Contact() {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 sx={{ backgroundColor: "white", borderRadius: 1 }}
+                required
               />
             </Grid>
           </Grid>
@@ -479,19 +510,24 @@ export default function Contact() {
             label="Work Email"
             variant="filled"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             sx={{ backgroundColor: "white", mt: 2, borderRadius: 1 }}
+            required
+            type="email"
+            error={Boolean(emailError)} // Shows error style if emailError is not empty
+            helperText={emailError} // Displays the error message
           />
 
           <TextField
             fullWidth
-            label="Your Feedback"
+            label="Inquiry or Feedback"
             variant="filled"
             multiline
             rows={4}
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             sx={{ backgroundColor: "white", mt: 2, borderRadius: 1 }}
+            required
           />
 
           <Button
