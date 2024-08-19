@@ -24,6 +24,12 @@ export default function Contact() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+  // State variables for form inputs
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [feedback, setFeedback] = useState("");
+
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
     setMenuOpen(true);
@@ -39,8 +45,14 @@ export default function Contact() {
   };
 
   const handleSendMessage = () => {
-    // Logic to handle the message send action would go here
+    // Show Snackbar
     setSnackbarOpen(true);
+
+    // Clear form inputs
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setFeedback("");
   };
 
   return (
@@ -259,6 +271,8 @@ export default function Contact() {
                 fullWidth
                 label="First Name"
                 variant="filled"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 sx={{ backgroundColor: "white", borderRadius: 1 }}
               />
             </Grid>
@@ -267,6 +281,8 @@ export default function Contact() {
                 fullWidth
                 label="Last Name"
                 variant="filled"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 sx={{ backgroundColor: "white", borderRadius: 1 }}
               />
             </Grid>
@@ -276,6 +292,8 @@ export default function Contact() {
             fullWidth
             label="Work Email"
             variant="filled"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             sx={{ backgroundColor: "white", mt: 2, borderRadius: 1 }}
           />
 
@@ -285,6 +303,8 @@ export default function Contact() {
             variant="filled"
             multiline
             rows={4}
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
             sx={{ backgroundColor: "white", mt: 2, borderRadius: 1 }}
           />
 
