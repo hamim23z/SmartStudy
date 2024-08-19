@@ -1,7 +1,8 @@
-"use client"; // This tells Next.js that this is a Client Component
-
+"use client"; 
 import { useState } from "react";
-import { SignedIn, UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+
 import {
   Box,
   Typography,
@@ -20,6 +21,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Contact() {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -33,6 +35,14 @@ export default function Contact() {
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
     setMenuOpen(true);
+  };
+
+  const handleSignInClick = () => {
+    router.push("/sign-in"); // Navigate to the sign-in page
+  };
+
+  const handleSignUpClick = () => {
+    router.push("/sign-up");
   };
 
   const handleMenuClose = () => {
@@ -88,6 +98,7 @@ export default function Contact() {
 
           {/* Desktop Menu Items */}
           <Box sx={{ display: { xs: "none", sm: "flex", color: "white" } }}>
+            {/* Items that should always be visible */}
             {[
               { text: "Pricing", href: "/pricing" },
               {
@@ -98,11 +109,12 @@ export default function Contact() {
                 text: "LinkedIn",
                 href: "https://www.linkedin.com/in/hamimc/",
               },
+              { text: "Contact", href: "/contact" },
               { text: "Start Building", href: "#" },
             ].map(({ text, href }, index) => (
               <Button
                 key={index}
-                component={Link}
+                component="a"
                 href={href}
                 target={href.startsWith("http") ? "_blank" : "_self"}
                 sx={{
@@ -148,6 +160,88 @@ export default function Contact() {
             <SignedIn>
               <UserButton />
             </SignedIn>
+
+            {/* Sign-in/Sign-up buttons visible when signed out */}
+            <SignedOut>
+              <Button
+                onClick={handleSignInClick}
+                sx={{
+                  color: "white",
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: "900",
+                  ml: 2,
+                  mr: 2,
+                  position: "relative",
+                  perspective: "1000px", // Add perspective for 3D effect
+                  overflow: "hidden", // Ensure contents do not overflow the button
+                  transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
+                  transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                  "&:hover": {
+                    color: "white",
+                    transform: "rotateX(360deg)", // Rotate vertically on hover
+                    backgroundColor: "transparent", // Avoid background color change on hover
+                  },
+                  "&::before": {
+                    color: "white",
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "inherit", // Inherit the button's background
+                    transition: "transform 0.6s ease-in-out",
+                    transform: "rotateX(360deg)",
+                    zIndex: -1,
+                  },
+                  "&:hover::before": {
+                    color: "white",
+                    transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                  },
+                }}
+              >
+                Sign In
+              </Button>
+              <Button
+                onClick={handleSignUpClick}
+                sx={{
+                  color: "white",
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: "900",
+                  ml: 2,
+                  mr: 2,
+                  position: "relative",
+                  perspective: "1000px", // Add perspective for 3D effect
+                  overflow: "hidden", // Ensure contents do not overflow the button
+                  transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
+                  transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                  "&:hover": {
+                    color: "white",
+                    transform: "rotateX(360deg)", // Rotate vertically on hover
+                    backgroundColor: "transparent", // Avoid background color change on hover
+                  },
+                  "&::before": {
+                    color: "white",
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    background: "inherit", // Inherit the button's background
+                    transition: "transform 0.6s ease-in-out",
+                    transform: "rotateX(360deg)",
+                    zIndex: -1,
+                  },
+                  "&:hover::before": {
+                    color: "white",
+                    transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                  },
+                }}
+              >
+                Sign Up
+              </Button>
+            </SignedOut>
           </Box>
 
           {/* Mobile Menu Button */}
@@ -166,6 +260,7 @@ export default function Contact() {
               onClose={handleMenuClose}
               sx={{ mt: "45px" }}
             >
+              {/* Items that should always be visible */}
               {[
                 { text: "Pricing", href: "/pricing" },
                 {
@@ -176,50 +271,140 @@ export default function Contact() {
                   text: "LinkedIn",
                   href: "https://www.linkedin.com/in/hamimc/",
                 },
+                { text: "Contact", href: "/contact" },
                 { text: "Start Building", href: "#" },
               ].map(({ text, href }, index) => (
-                <MenuItem
-                  key={index}
-                  component={Link}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : "_self"}
-                  sx={{
-                    color: "black",
-                    fontFamily: "Kanit, sans-serif",
-                    fontWeight: "900",
-                    ml: 2,
-                    mr: 2,
-                    position: "relative",
-                    perspective: "1000px", // Add perspective for 3D effect
-                    overflow: "hidden", // Ensure contents do not overflow the button
-                    transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
-                    transformStyle: "preserve-3d", // Ensure 3D space for rotation
-                    "&:hover": {
-                      color: "white",
-                      transform: "rotateX(360deg)", // Rotate vertically on hover
-                      backgroundColor: "transparent", // Avoid background color change on hover
-                    },
-                    "&::before": {
-                      content: '""',
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      background: "inherit", // Inherit the button's background
-                      transition: "transform 0.6s ease-in-out",
-                      transform: "rotateX(360deg)",
-                      zIndex: -1,
-                    },
-                    "&:hover::before": {
-                      transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
-                    },
-                  }}
-                  onClick={handleMenuClose}
-                >
-                  {text}
+                <MenuItem key={index} onClick={handleMenuClose}>
+                  <Button
+                    component="a"
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : "_self"}
+                    sx={{
+                      color: "black",
+                      fontFamily: "Kanit, sans-serif",
+                      fontWeight: "900",
+                      ml: 2,
+                      mr: 2,
+                      position: "relative",
+                      perspective: "1000px", // Add perspective for 3D effect
+                      overflow: "hidden", // Ensure contents do not overflow the button
+                      transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
+                      transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                      "&:hover": {
+                        color: "white",
+                        transform: "rotateX(360deg)", // Rotate vertically on hover
+                        backgroundColor: "transparent", // Avoid background color change on hover
+                      },
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        background: "inherit", // Inherit the button's background
+                        transition: "transform 0.6s ease-in-out",
+                        transform: "rotateX(360deg)",
+                        zIndex: -1,
+                      },
+                      "&:hover::before": {
+                        transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                      },
+                    }}
+                  >
+                    {text}
+                  </Button>
                 </MenuItem>
               ))}
+
+              {/* UserButton visible when signed in */}
+              <SignedIn>
+                <MenuItem onClick={handleMenuClose}>
+                  <UserButton />
+                </MenuItem>
+              </SignedIn>
+
+              {/* Sign-in/Sign-up buttons visible when signed out */}
+              <SignedOut>
+                <MenuItem onClick={handleMenuClose}>
+                  <Button
+                    onClick={handleSignInClick}
+                    sx={{
+                      color: "black",
+                      fontFamily: "Kanit, sans-serif",
+                      fontWeight: "900",
+                      ml: 2,
+                      mr: 2,
+                      position: "relative",
+                      perspective: "1000px", // Add perspective for 3D effect
+                      overflow: "hidden", // Ensure contents do not overflow the button
+                      transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
+                      transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                      "&:hover": {
+                        color: "white",
+                        transform: "rotateX(360deg)", // Rotate vertically on hover
+                        backgroundColor: "transparent", // Avoid background color change on hover
+                      },
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        background: "inherit", // Inherit the button's background
+                        transition: "transform 0.6s ease-in-out",
+                        transform: "rotateX(360deg)",
+                        zIndex: -1,
+                      },
+                      "&:hover::before": {
+                        transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                      },
+                    }}
+                  >
+                    Sign In
+                  </Button>
+                </MenuItem>
+                <MenuItem onClick={handleMenuClose}>
+                  <Button
+                    onClick={handleSignUpClick}
+                    sx={{
+                      color: "black",
+                      fontFamily: "Kanit, sans-serif",
+                      fontWeight: "900",
+                      ml: 2,
+                      mr: 2,
+                      position: "relative",
+                      perspective: "1000px", // Add perspective for 3D effect
+                      overflow: "hidden", // Ensure contents do not overflow the button
+                      transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
+                      transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                      "&:hover": {
+                        color: "white",
+                        transform: "rotateX(360deg)", // Rotate vertically on hover
+                        backgroundColor: "transparent", // Avoid background color change on hover
+                      },
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        background: "inherit", // Inherit the button's background
+                        transition: "transform 0.6s ease-in-out",
+                        transform: "rotateX(360deg)",
+                        zIndex: -1,
+                      },
+                      "&:hover::before": {
+                        transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                      },
+                    }}
+                  >
+                    Sign Up
+                  </Button>
+                </MenuItem>
+              </SignedOut>
             </Menu>
           </Box>
         </Toolbar>
@@ -232,7 +417,7 @@ export default function Contact() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          minHeight: "calc(100vh - 64px)", // Adjust this if the AppBar height changes
+          minHeight: "calc(100vh - 84px)", // Adjust this if the AppBar height changes
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -262,7 +447,8 @@ export default function Contact() {
           </Typography>
 
           <Typography variant="body1" sx={{ color: "white", mb: 2 }}>
-            We would love to hear from you! Please fill out the form below with your feedback or inquiries.
+            We would love to hear from you! Please fill out the form below with
+            your feedback or any inquiries you may have.
           </Typography>
 
           <Grid container spacing={2}>

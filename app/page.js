@@ -88,6 +88,7 @@ export default function Home() {
   const handleSignUpClick = () => {
     router.push("/sign-up");
   };
+  
   const handleContact = () => {
     router.push("/contact");
   };
