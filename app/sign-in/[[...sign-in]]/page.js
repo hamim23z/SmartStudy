@@ -46,18 +46,24 @@ export default function SignUpPage() {
         }}
       >
         <Toolbar>
-          <Typography
-            variant="h6"
-            sx={{
-              flexGrow: 1,
-              textTransform: "uppercase",
-              fontFamily: "Kanit, sans-serif",
-              fontWeight: "900",
-              color: "white",
-            }}
-          >
-            Smart Study
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Link href="/" passHref style={{ textDecoration: "none" }}>
+              {" "}
+              {/* Remove underline from Link */}
+              <Typography
+                variant="h6"
+                sx={{
+                  textTransform: "uppercase",
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: "900",
+                  color: "white",
+                  cursor: "pointer", // Indicate it's clickable
+                }}
+              >
+                Smart Study
+              </Typography>
+            </Link>
+          </Box>
 
           {/* Desktop Menu Items */}
           <Box sx={{ display: { xs: "none", sm: "flex", color: "white" } }}>

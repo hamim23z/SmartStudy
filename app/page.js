@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Head from "next/head";
+import Link from "next/link";
 
 // PricingCard Component
 function PricingCard({ title, price, features }) {
@@ -100,18 +101,24 @@ export default function Home() {
         }}
       >
         <Toolbar>
-          <Typography
-            variant="h6"
-            sx={{
-              flexGrow: 1,
-              textTransform: "uppercase",
-              fontFamily: "Kanit, sans-serif",
-              fontWeight: "900",
-              color: "white",
-            }}
-          >
-            Smart Study
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Link href="/" passHref style={{ textDecoration: "none" }}>
+              {" "}
+              {/* Remove underline from Link */}
+              <Typography
+                variant="h6"
+                sx={{
+                  textTransform: "uppercase",
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: "900",
+                  color: "white",
+                  cursor: "pointer", // Indicate it's clickable
+                }}
+              >
+                Smart Study
+              </Typography>
+            </Link>
+          </Box>
 
           {/* Desktop Menu Items */}
           <Box sx={{ display: { xs: "none", sm: "flex", color: "white" } }}>
@@ -474,7 +481,9 @@ export default function Home() {
             flexDirection: { xs: "column", sm: "row" }, // Stack buttons on small screens
             gap: 2,
             mt: 4,
-            ml: 7,
+            ml: 4,
+            justifyContent: "center",
+            alignItems: "center"
           }}
         >
           <Button
