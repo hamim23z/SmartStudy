@@ -1,4 +1,5 @@
-"use client";
+"use client"; // This tells Next.js that this is a Client Component
+
 import { useState } from "react";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import {
@@ -11,7 +12,7 @@ import {
   IconButton,
   Menu,
   TextField,
-  Container,
+  Snackbar,
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -21,6 +22,7 @@ import Link from "next/link";
 export default function Contact() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +32,15 @@ export default function Contact() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     setMenuOpen(false);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleSendMessage = () => {
+    // Logic to handle the message send action would go here
+    setSnackbarOpen(true);
   };
 
   return (
@@ -65,7 +76,6 @@ export default function Contact() {
 
           {/* Desktop Menu Items */}
           <Box sx={{ display: { xs: "none", sm: "flex", color: "white" } }}>
-            {/* Items that should always be visible */}
             {[
               { text: "Pricing", href: "/pricing" },
               {
@@ -80,7 +90,7 @@ export default function Contact() {
             ].map(({ text, href }, index) => (
               <Button
                 key={index}
-                component="a"
+                component={Link}
                 href={href}
                 target={href.startsWith("http") ? "_blank" : "_self"}
                 sx={{
@@ -144,7 +154,6 @@ export default function Contact() {
               onClose={handleMenuClose}
               sx={{ mt: "45px" }}
             >
-              {/* Items that should always be visible */}
               {[
                 { text: "Pricing", href: "/pricing" },
                 {
@@ -155,49 +164,48 @@ export default function Contact() {
                   text: "LinkedIn",
                   href: "https://www.linkedin.com/in/hamimc/",
                 },
-
                 { text: "Start Building", href: "#" },
               ].map(({ text, href }, index) => (
-                <MenuItem key={index} onClick={handleMenuClose}>
-                  <Button
-                    component="a"
-                    href={href}
-                    target={href.startsWith("http") ? "_blank" : "_self"}
-                    sx={{
-                      color: "black",
-                      fontFamily: "Kanit, sans-serif",
-                      fontWeight: "900",
-                      ml: 2,
-                      mr: 2,
-                      position: "relative",
-                      perspective: "1000px", // Add perspective for 3D effect
-                      overflow: "hidden", // Ensure contents do not overflow the button
-                      transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
-                      transformStyle: "preserve-3d", // Ensure 3D space for rotation
-                      "&:hover": {
-                        color: "white",
-                        transform: "rotateX(360deg)", // Rotate vertically on hover
-                        backgroundColor: "transparent", // Avoid background color change on hover
-                      },
-                      "&::before": {
-                        content: '""',
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        background: "inherit", // Inherit the button's background
-                        transition: "transform 0.6s ease-in-out",
-                        transform: "rotateX(360deg)",
-                        zIndex: -1,
-                      },
-                      "&:hover::before": {
-                        transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
-                      },
-                    }}
-                  >
-                    {text}
-                  </Button>
+                <MenuItem
+                  key={index}
+                  component={Link}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : "_self"}
+                  sx={{
+                    color: "black",
+                    fontFamily: "Kanit, sans-serif",
+                    fontWeight: "900",
+                    ml: 2,
+                    mr: 2,
+                    position: "relative",
+                    perspective: "1000px", // Add perspective for 3D effect
+                    overflow: "hidden", // Ensure contents do not overflow the button
+                    transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
+                    transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                    "&:hover": {
+                      color: "white",
+                      transform: "rotateX(360deg)", // Rotate vertically on hover
+                      backgroundColor: "transparent", // Avoid background color change on hover
+                    },
+                    "&::before": {
+                      content: '""',
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      background: "inherit", // Inherit the button's background
+                      transition: "transform 0.6s ease-in-out",
+                      transform: "rotateX(360deg)",
+                      zIndex: -1,
+                    },
+                    "&:hover::before": {
+                      transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                    },
+                  }}
+                  onClick={handleMenuClose}
+                >
+                  {text}
                 </MenuItem>
               ))}
             </Menu>
@@ -292,11 +300,19 @@ export default function Contact() {
                 backgroundColor: "darkred",
               },
             }}
+            onClick={handleSendMessage}
           >
             Send Message
           </Button>
         </Box>
       </Box>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        message="Message sent, thanks for the feedback!"
+      />
     </>
   );
 }
