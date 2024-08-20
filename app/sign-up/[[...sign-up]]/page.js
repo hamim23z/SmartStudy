@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import getStripe from "@/utils/get-stripe";
-import { SignedIn, SignedOut, SignIn, SignUp, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignIn, SignUp, UserButton, useUser } from "@clerk/nextjs";
 import {
   Box,
   Typography,
@@ -23,6 +24,14 @@ import Link from "next/link";
 export default function SignUpPage() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+  const { isSignedIn, isLoaded } = useUser();
+
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      router.push("/generate");
+    }
+  }, [isLoaded, isSignedIn, router]);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +42,10 @@ export default function SignUpPage() {
     setAnchorEl(null);
     setMenuOpen(false);
   };
+
+  if (isLoaded && isSignedIn) {
+    return null; // Render nothing while redirecting
+  }
 
   return (
     <>
@@ -48,8 +61,6 @@ export default function SignUpPage() {
         <Toolbar>
           <Box sx={{ flexGrow: 1 }}>
             <Link href="/" passHref style={{ textDecoration: "none" }}>
-              {" "}
-              {/* Remove underline from Link */}
               <Typography
                 variant="h6"
                 sx={{
@@ -57,7 +68,7 @@ export default function SignUpPage() {
                   fontFamily: "Kanit, sans-serif",
                   fontWeight: "900",
                   color: "white",
-                  cursor: "pointer", // Indicate it's clickable
+                  cursor: "pointer",
                 }}
               >
                 Smart Study
@@ -67,17 +78,10 @@ export default function SignUpPage() {
 
           {/* Desktop Menu Items */}
           <Box sx={{ display: { xs: "none", sm: "flex", color: "white" } }}>
-            {/* Items that should always be visible */}
             {[
               { text: "Pricing", href: "/pricing" },
-              {
-                text: "GitHub",
-                href: "https://github.com/hamim23z/SmartStudy",
-              },
-              {
-                text: "LinkedIn",
-                href: "https://www.linkedin.com/in/hamimc/",
-              },
+              { text: "GitHub", href: "https://github.com/hamim23z/SmartStudy" },
+              { text: "LinkedIn", href: "https://www.linkedin.com/in/hamimc/" },
               { text: "Contact", href: "/contact" },
               { text: "Start Building", href: "#" },
             ].map(({ text, href }, index) => (
@@ -93,14 +97,14 @@ export default function SignUpPage() {
                   ml: 2,
                   mr: 2,
                   position: "relative",
-                  perspective: "1000px", // Add perspective for 3D effect
-                  overflow: "hidden", // Ensure contents do not overflow the button
-                  transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
-                  transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                  perspective: "1000px",
+                  overflow: "hidden",
+                  transition: "transform 0.6s ease-in-out",
+                  transformStyle: "preserve-3d",
                   "&:hover": {
                     color: "white",
-                    transform: "rotateX(360deg)", // Rotate vertically on hover
-                    backgroundColor: "transparent", // Avoid background color change on hover
+                    transform: "rotateX(360deg)",
+                    backgroundColor: "transparent",
                   },
                   "&::before": {
                     color: "white",
@@ -110,14 +114,14 @@ export default function SignUpPage() {
                     left: 0,
                     width: "100%",
                     height: "100%",
-                    background: "inherit", // Inherit the button's background
+                    background: "inherit",
                     transition: "transform 0.6s ease-in-out",
                     transform: "rotateX(360deg)",
                     zIndex: -1,
                   },
                   "&:hover::before": {
                     color: "white",
-                    transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                    transform: "rotateX(360deg)",
                   },
                 }}
               >
@@ -125,7 +129,6 @@ export default function SignUpPage() {
               </Button>
             ))}
 
-            {/* UserButton visible when signed in */}
             <SignedIn>
               <UserButton />
             </SignedIn>
@@ -147,17 +150,10 @@ export default function SignUpPage() {
               onClose={handleMenuClose}
               sx={{ mt: "45px" }}
             >
-              {/* Items that should always be visible */}
               {[
                 { text: "Pricing", href: "/pricing" },
-                {
-                  text: "GitHub",
-                  href: "https://github.com/hamim23z/SmartStudy",
-                },
-                {
-                  text: "LinkedIn",
-                  href: "https://www.linkedin.com/in/hamimc/",
-                },
+                { text: "GitHub", href: "https://github.com/hamim23z/SmartStudy" },
+                { text: "LinkedIn", href: "https://www.linkedin.com/in/hamimc/" },
                 { text: "Contact", href: "/contact" },
                 { text: "Start Building", href: "#" },
               ].map(({ text, href }, index) => (
@@ -173,14 +169,14 @@ export default function SignUpPage() {
                       ml: 2,
                       mr: 2,
                       position: "relative",
-                      perspective: "1000px", // Add perspective for 3D effect
-                      overflow: "hidden", // Ensure contents do not overflow the button
-                      transition: "transform 0.6s ease-in-out", // Smooth transition for rotation
-                      transformStyle: "preserve-3d", // Ensure 3D space for rotation
+                      perspective: "1000px",
+                      overflow: "hidden",
+                      transition: "transform 0.6s ease-in-out",
+                      transformStyle: "preserve-3d",
                       "&:hover": {
                         color: "white",
-                        transform: "rotateX(360deg)", // Rotate vertically on hover
-                        backgroundColor: "transparent", // Avoid background color change on hover
+                        transform: "rotateX(360deg)",
+                        backgroundColor: "transparent",
                       },
                       "&::before": {
                         content: '""',
@@ -189,13 +185,13 @@ export default function SignUpPage() {
                         left: 0,
                         width: "100%",
                         height: "100%",
-                        background: "inherit", // Inherit the button's background
+                        background: "inherit",
                         transition: "transform 0.6s ease-in-out",
                         transform: "rotateX(360deg)",
                         zIndex: -1,
                       },
                       "&:hover::before": {
-                        transform: "rotateX(360deg)", // Rotate to reveal the button's background on hover
+                        transform: "rotateX(360deg)",
                       },
                     }}
                   >
@@ -215,7 +211,7 @@ export default function SignUpPage() {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          minHeight: "calc(100vh - 84px)", // Adjust this if the AppBar height changes
+          minHeight: "calc(100vh - 84px)",
         }}
       >
         <Box
@@ -238,7 +234,7 @@ export default function SignUpPage() {
           >
             Sign Up
           </Typography>
-          <SignUp />
+          <SignUp redirectUrl="/generate" />
         </Box>
       </Box>
     </>
