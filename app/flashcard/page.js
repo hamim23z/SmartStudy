@@ -285,7 +285,7 @@ export default function Flashcard() {
             <MenuIcon />
           </IconButton>
 
-          <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleMenuClose}>
+          <Menu anchorEl={anchorEl} open={menuOpen} onClose={handleMenuClose} sx = {{fontWeight: "bold"}}>
             {[
               { text: "Pricing", href: "/pricing" },
               {
@@ -302,6 +302,9 @@ export default function Flashcard() {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : "_self"}
                 onClick={handleMenuClose}
+                sx = {{
+                  fontWeight: "bold"
+                }}
               >
                 {text}
               </MenuItem>
