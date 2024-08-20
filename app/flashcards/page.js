@@ -306,6 +306,9 @@ export default function Flashcards() {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : "_self"}
                 onClick={handleMenuClose}
+                sx = {{
+                  fontWeight: "bold"
+                }}
               >
                 {text}
               </MenuItem>
@@ -338,6 +341,21 @@ export default function Flashcards() {
         }}
       >
         <Container maxWidth="1200px">
+          <Box>
+            <Typography
+              variant="h4"
+              sx={{
+                color: "white",
+                fontFamily: "Kanit, sans-serif",
+                fontWeight: 900,
+                textTransform: "uppercase",
+                textAlign: "center",
+              }}
+            >
+              Your Flashcard Collection
+            </Typography>
+          </Box>
+
           <Grid container spacing={3} sx={{ mt: 4 }}>
             {flashcards.map((flashcard, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
@@ -348,7 +366,16 @@ export default function Flashcards() {
                     onClick={() => handleCardClick(flashcard.name)}
                   >
                     <CardContent>
-                      <Typography variant="h5" component="div">
+                      <Typography
+                        variant="h5"
+                        component="div"
+                        sx={{
+                          textAlign: "center",
+                          fontFamily: "Kanit, sans-serif",
+                          fontWeight: 900,
+                          textTransform: "uppercase",
+                        }}
+                      >
                         {flashcard.name}
                       </Typography>
                     </CardContent>
