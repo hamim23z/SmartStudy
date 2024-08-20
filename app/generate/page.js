@@ -339,6 +339,9 @@ export default function Generate() {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : "_self"}
                 onClick={handleMenuClose}
+                sx = {{
+                  fontWeight: "bold"
+                }}
               >
                 {text}
               </MenuItem>
@@ -408,6 +411,7 @@ export default function Generate() {
                 multiline
                 rows={4}
                 variant="outlined"
+                required
                 sx={{
                   mb: 2,
                 }}
@@ -467,12 +471,23 @@ export default function Generate() {
                           >
                             <div>
                               <div>
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h5" component="div"
+                                  sx = {{
+                                    fontSize: "18px",
+                                    fontFamily: "Kanit, sans-serif",
+                                    fontWeight: "bold",
+                                    textAlign: "center"
+                                  }}
+                                >
                                   {flashcard.front}
                                 </Typography>
                               </div>
                               <div>
-                                <Typography variant="h5" component="div">
+                                <Typography variant="h5" component="div"
+                                  sx = {{
+                                    fontSize: "14px"
+                                  }}
+                                >
                                   {flashcard.back}
                                 </Typography>
                               </div>
@@ -508,9 +523,24 @@ export default function Generate() {
           )}
 
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Save Flashcards</DialogTitle>
+            <DialogTitle
+              sx = {{
+                textAlign: "center",
+                fontFamily: "Kanit, sans-serif",
+                fontWeight: 900,
+                textTransform: "uppercase"
+              }}
+            >
+              Save Flashcards
+            </DialogTitle>
+
             <DialogContent>
-              <DialogContentText>
+              <DialogContentText
+                sx = {{
+                  fontFamily: "Kanit, sans-serif",
+                  paddingBottom: "20px"
+                }}
+              >
                 Please enter a name for your flashcards collection.
               </DialogContentText>
               <TextField
@@ -522,17 +552,28 @@ export default function Generate() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 variant="outlined"
+                required
               ></TextField>
             </DialogContent>
 
             <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={saveFlashcards}>Save</Button>
+              <Button onClick={handleClose}
+                sx = {{
+                  fontWeight: 'bold'
+                }}
+              >Cancel</Button>
+              <Button onClick={saveFlashcards}
+                sx = {{
+                  fontWeight: 'bold'
+                }}
+              >Save</Button>
             </DialogActions>
           </Dialog>
         </Container>
       </Box>
 
+
+      {/*Footer*/}
       <Box
         sx={{
           bgcolor: "black",
