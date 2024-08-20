@@ -339,8 +339,8 @@ export default function Generate() {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : "_self"}
                 onClick={handleMenuClose}
-                sx = {{
-                  fontWeight: "bold"
+                sx={{
+                  fontWeight: "bold",
                 }}
               >
                 {text}
@@ -360,8 +360,6 @@ export default function Generate() {
           </Menu>
         </Toolbar>
       </AppBar>
-
-
 
       {/* Main Content */}
       <Box
@@ -391,7 +389,7 @@ export default function Generate() {
                 fontWeight: "900",
                 paddingBottom: "50px",
                 color: "white",
-                textTransform: "uppercase"
+                textTransform: "uppercase",
               }}
             >
               Generate Flashcards using ChronicleAI
@@ -430,7 +428,16 @@ export default function Generate() {
 
           {flashcards.length > 0 && (
             <Box sx={{ mt: 4 }}>
-              <Typography variant="h5" sx={{ color: "white", fontFamily: "Kanit, sans-serif", fontWeight: "900", textAlign: "center", paddingBottom: "30px" }}>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: "white",
+                  fontFamily: "Kanit, sans-serif",
+                  fontWeight: "900",
+                  textAlign: "center",
+                  paddingBottom: "30px",
+                }}
+              >
                 Flashcards Previewed
               </Typography>
               <Grid container spacing={3}>
@@ -471,21 +478,25 @@ export default function Generate() {
                           >
                             <div>
                               <div>
-                                <Typography variant="h5" component="div"
-                                  sx = {{
+                                <Typography
+                                  variant="h5"
+                                  component="div"
+                                  sx={{
                                     fontSize: "18px",
                                     fontFamily: "Kanit, sans-serif",
                                     fontWeight: "bold",
-                                    textAlign: "center"
+                                    textAlign: "center",
                                   }}
                                 >
                                   {flashcard.front}
                                 </Typography>
                               </div>
                               <div>
-                                <Typography variant="h5" component="div"
-                                  sx = {{
-                                    fontSize: "14px"
+                                <Typography
+                                  variant="h5"
+                                  component="div"
+                                  sx={{
+                                    fontSize: "14px",
                                   }}
                                 >
                                   {flashcard.back}
@@ -505,15 +516,15 @@ export default function Generate() {
                   mt: 4,
                   display: "flex",
                   justifyContent: "center",
-                  paddingBottom: "60px"
+                  paddingBottom: "60px",
                 }}
               >
                 <Button
                   variant="contained"
                   onClick={handleOpen}
-                  sx = {{
+                  sx={{
                     fontFamily: "Kanit, sans-serif",
-                    fontWeight: "900"
+                    fontWeight: "900",
                   }}
                 >
                   Save
@@ -524,11 +535,11 @@ export default function Generate() {
 
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle
-              sx = {{
+              sx={{
                 textAlign: "center",
                 fontFamily: "Kanit, sans-serif",
                 fontWeight: 900,
-                textTransform: "uppercase"
+                textTransform: "uppercase",
               }}
             >
               Save Flashcards
@@ -536,9 +547,9 @@ export default function Generate() {
 
             <DialogContent>
               <DialogContentText
-                sx = {{
+                sx={{
                   fontFamily: "Kanit, sans-serif",
-                  paddingBottom: "20px"
+                  paddingBottom: "20px",
                 }}
               >
                 Please enter a name for your flashcards collection.
@@ -557,21 +568,26 @@ export default function Generate() {
             </DialogContent>
 
             <DialogActions>
-              <Button onClick={handleClose}
-                sx = {{
-                  fontWeight: 'bold'
+              <Button
+                onClick={handleClose}
+                sx={{
+                  fontWeight: "bold",
                 }}
-              >Cancel</Button>
-              <Button onClick={saveFlashcards}
-                sx = {{
-                  fontWeight: 'bold'
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={saveFlashcards}
+                sx={{
+                  fontWeight: "bold",
                 }}
-              >Save</Button>
+              >
+                Save
+              </Button>
             </DialogActions>
           </Dialog>
         </Container>
       </Box>
-
 
       {/*Footer*/}
       <Box
