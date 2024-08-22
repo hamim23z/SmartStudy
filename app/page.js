@@ -471,7 +471,7 @@ export default function Home() {
             fontWeight: "900",
             fontSize: { xs: "2rem", sm: "3rem" },
             color: "white",
-            mb: 2,
+            mb: 1,
           }}
         >
           Welcome to Smart Study
@@ -483,6 +483,7 @@ export default function Home() {
             fontWeight: "900",
             fontSize: { xs: "1rem", sm: "1.5rem" },
             color: "white",
+            paddingBottom: "30px"
           }}
         >
           The premiere flashcards and study materials for Computer Science
@@ -493,8 +494,7 @@ export default function Home() {
             display: "flex",
             flexDirection: { xs: "column", sm: "row" }, // Stack buttons on small screens
             gap: 2,
-            mt: 4,
-            ml: 4,
+            margin: "0 auto",
             justifyContent: "center",
             alignItems: "center",
           }}
